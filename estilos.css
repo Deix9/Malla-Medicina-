@@ -1,7 +1,6 @@
-/* estilos.css */
-
+/* General */
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #1a001a;
   color: #ffffff;
   margin: 0;
@@ -11,59 +10,83 @@ body {
 h1 {
   text-align: center;
   color: #d2b4de;
+  margin-bottom: 10px;
 }
 
+p {
+  text-align: center;
+  color: #c39bd3;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+/* Contenedor principal de la malla */
 #malla-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  flex-wrap: nowrap;
   gap: 20px;
-  padding: 30px 10px;
-  flex-direction: row;
-  align-items: flex-start;
+  padding: 0 10px;
   overflow-x: auto;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: calc(100vh - 160px); /* Ajusta para evitar scroll vertical */
 }
 
+/* Columna de semestre */
 .semestre {
-  min-width: 250px;
   background-color: #290033;
   border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  min-width: 260px;
+  padding: 15px 10px;
+  box-shadow: 0 0 15px rgba(210, 180, 222, 0.3);
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  overflow-y: auto;
 }
 
+/* Título del semestre */
 .semestre h2 {
   text-align: center;
   color: #e1bee7;
-  margin-top: 0;
-  font-size: 1.1em;
+  margin: 0 0 15px;
+  font-size: 1.15rem;
+  font-weight: 700;
 }
 
+/* Cada ramo dentro del semestre */
 .ramo {
   background-color: #4a235a;
   border: 2px solid #7d3c98;
   border-radius: 10px;
   padding: 10px;
-  margin: 5px 0;
-  width: 100%;
+  margin: 6px 0;
   text-align: center;
-  transition: transform 0.2s, background-color 0.3s;
-  cursor: pointer;
-  color: #f8f8f8;
   font-size: 0.9rem;
+  font-weight: 500;
+  color: #f8f8f8;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-.ramo:hover {
-  transform: scale(1.02);
+/* Hover en ramos desbloqueados */
+.ramo:hover:not(.bloqueado) {
+  transform: scale(1.04);
   background-color: #6c3483;
 }
 
+/* Estado aprobado */
 .ramo.aprobado {
   background-color: #8e44ad;
   border-color: #d2b4de;
   color: #ffffff;
+  font-weight: 700;
+  cursor: default;
+  transform: scale(1.05);
 }
 
+/* Estado bloqueado */
 .ramo.bloqueado {
   background-color: #2e2e2e;
   border-color: #5a5a5a;
@@ -71,4 +94,37 @@ h1 {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.6;
+  user-select: none;
+}
+
+/* Scrollbar personalizado para contenedor y columnas */
+#malla-container::-webkit-scrollbar,
+.semestre::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+#malla-container::-webkit-scrollbar-track,
+.semestre::-webkit-scrollbar-track {
+  background: #1a001a;
+}
+
+#malla-container::-webkit-scrollbar-thumb,
+.semestre::-webkit-scrollbar-thumb {
+  background: #7d3c98;
+  border-radius: 4px;
+}
+
+/* Responsive: en pantallas muy pequeñas, columnas toman más espacio */
+@media (max-width: 600px) {
+  #malla-container {
+    gap: 10px;
+  }
+  .semestre {
+    min-width: 200px;
+  }
+  .ramo {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
 }
